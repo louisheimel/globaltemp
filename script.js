@@ -8,7 +8,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
     height: 400,
     border: '1px solid black',
     margin: '40px auto 0 auto',
-    padding: '0 80px 60px 50px',
+    padding: '0 80px 60px 90px',
     display: 'block',
     heightFraction: .9,
     titleHeight: 55,
@@ -47,13 +47,13 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
                            .domain([oldestYear, soonestYear])
                            .range([0, config.width]),
 
-             formatYear = (yr) => { return String(yr).split(',').join('') },
+             formatYear = yr => String(yr).split(',').join(''),
              xAxis = d3.axisBottom(timeScale).tickFormat(formatYear)
       
        root.append('g')
            .attr('transform', 'translate(0, 400)')
            .call(xAxis)
-
+       
        const calculateColor = function(monthVariance) {
          // calculate temperature
          const normalize = function(val) { 
@@ -72,8 +72,22 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
          .attr('height', (d, i) => (config.height * config.heightFraction) / 12)
          .attr('x', (d) => (d.year - oldestYear) * (config.width / (soonestYear + 1 - oldestYear)))
          .attr('y', (d, i) => config.height - (13 - d.month) * (config.height * config.heightFraction) / 12)
-         .attr('fill', d => calculateColor(d.variance))
-       
+         .attr('fill', d => calculateColor(d.variance));
+
+       const monthList = ['January', 'February', 'March',
+                          'April', 'May', 'June',
+                          'July', 'August', 'September',
+                          'October', 'November', 'December'];
+
+       monthList.forEach((e, i) => {
+         root.append('text')
+             .attr('x', -70)
+             .attr('y', 30 * i + 60)
+             .text(e)
+       })
+
+       nums.forEach(e => console.log(e))
+
        const div = d3.select("body").append("div")
 							.attr("class", "tooltip")
 							.style("display", "none");
@@ -94,6 +108,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
            12: 'December',
          }[e]
        }
+
        months.on('mouseover', function(e) {
          div.style('display', 'block')
             .text(numToMonth(e.month) + ' - ' + e.year + '\n' + (baseTemperature + e.variance).toFixed(3) + ' ' + String.fromCharCode(176) + 'C' + '\n' + e.variance + ' ' + String.fromCharCode(176) + 'C')
@@ -107,6 +122,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
             .style('border-radius', '20px')
             .style('white-space', 'pre-wrap')
        })
+
        months.on('mouseleave', function() {
          div.style('display', 'none')
        })
