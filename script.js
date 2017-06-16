@@ -6,9 +6,9 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
   const config = {
     width: 1000,
     height: 400,
-    border: '1px solid black',
+    border: 'none',
     margin: '40px auto 0 auto',
-    padding: '40px 80px 60px 90px',
+    padding: '40px 20px 60px 120px',
     display: 'block',
     heightFraction: .9,
     titleHeight: 55,
@@ -140,6 +140,18 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
            .text('Temperatures in Celsius relative to Jan 1951 - Dec 1980 average (8.66 +/- 0.07)')
            .attr('x', 725)
            .attr('y', 30)
+
+       root.append('text')
+           .attr('x', -180).attr('y', -90)
+           .attr('font-weight', 'bold')
+           .attr('font-size', '20px')
+           .text('Months')
+           .attr('transform', 'rotate(270)')
+
+       root.append('text')
+           .attr('x', 500).attr('y', 445)
+           .attr('font-size', '20px').attr('font-weight', 'bold')
+           .text('Year')
         
 })
 .catch((err) => { console.log(err) })
