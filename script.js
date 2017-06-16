@@ -8,7 +8,7 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
     height: 400,
     border: '1px solid black',
     margin: '40px auto 0 auto',
-    padding: '0 80px 60px 90px',
+    padding: '40px 80px 60px 90px',
     display: 'block',
     heightFraction: .9,
     titleHeight: 55,
@@ -124,6 +124,22 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
        months.on('mouseleave', function() {
          div.style('display', 'none')
        })
+       
+       root.append('text')
+           .text('Monthly Global Land-Surface Temperature')
+           .attr('x', 690)
+           .attr('y', -10)
+           .attr('font-size', 25)
+  
+       root.append('text')
+           .text(oldestYear + ' - ' + soonestYear)
+           .attr('x', 500)
+           .attr('y', 10)
+
+       root.append('text')
+           .text('Temperatures in Celsius relative to Jan 1951 - Dec 1980 average (8.66 +/- 0.07)')
+           .attr('x', 725)
+           .attr('y', 30)
         
 })
 .catch((err) => { console.log(err) })
