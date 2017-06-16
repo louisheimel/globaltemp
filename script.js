@@ -26,14 +26,14 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
            years.filter(datum => datum.year === data.year)[0].months.push(data)
         })
   
-        var root = d3.select('body')
-                      .append('svg')
-                      .attr('width', config.width)
-                      .attr('height', config.height)
-                      .style('border', config.border)
-                      .style('padding', config.padding)
-                      .style('display', config.display)
-                      .style('margin', config.margin)
+			var root = d3.select('body')
+						.append('svg')
+						.attr('width', config.width)
+						.attr('height', config.height)
+						.style('border', config.border)
+						.style('padding', config.padding)
+						.style('display', config.display)
+						.style('margin', config.margin)
         
        // create a function which maps each object to a color
        const colors = d3.scaleLinear()
@@ -63,8 +63,41 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
          .attr('y', (d, i) => config.height - (13 - d.month) * (config.height * config.heightFraction) / 12)
          .attr('fill', d => calculateColor(d.variance))
        
+       const div = d3.select("body").append("div")
+							.attr("class", "tooltip")
+							.style("display", "none");
+
+       const numToMonth = (e) => {
+         return {
+           1: 'January',
+           2: 'February',
+           3: 'March',
+           4: 'April',
+           5: 'May',
+           6: 'June',
+           7: 'July',
+           8: 'August',
+           9: 'September',
+           10: 'October',
+           11: 'November',
+           12: 'December',
+         }[e]
+       }
        months.on('mouseover', function(e) {
-         console.log(e)
+         div.style('display', 'block')
+            .text(numToMonth(e.month) + ' - ' + e.year + '\n' + (baseTemperature + e.variance).toFixed(3) + ' ' + String.fromCharCode(176) + 'C' + '\n' + e.variance + ' ' + String.fromCharCode(176) + 'C')
+            .style("left", (d3.event.pageX + 20) + "px")
+            .style("top", (d3.event.pageY - 40) + "px")
+            .style('position', 'absolute')
+            .style('width', 'auto')
+            .style('height', 'auto')
+            .style('background-color', '#c7c7c7')
+            .style('padding', '10px')
+            .style('border-radius', '20px')
+            .style('white-space', 'pre-wrap')
+       })
+       months.on('mouseleave', function() {
+         div.style('display', 'none')
        })
         
 })
