@@ -42,7 +42,18 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
        const hottestTemp = variance.reduce((a, e) => e.variance > a.variance ? e : a).variance + baseTemperature,
              coldestTemp = variance.reduce((a, e) => e.variance < a.variance ? e : a).variance + baseTemperature,
              soonestYear = variance.reduce((a, e) => e.year > a.year ? e : a).year,
-             oldestYear = variance.reduce((a, e) => e.year < a.year ? e : a).year
+             oldestYear = variance.reduce((a, e) => e.year < a.year ? e : a).year,
+             timeScale = d3.scaleLinear()
+                           .domain([oldestYear, soonestYear])
+                           .range([0, config.width]),
+
+             formatYear = (yr) => { return String(yr).split(',').join('') },
+             xAxis = d3.axisBottom(timeScale).tickFormat(formatYear)
+      
+       root.append('g')
+           .attr('transform', 'translate(0, 400)')
+           .call(xAxis)
+
        const calculateColor = function(monthVariance) {
          // calculate temperature
          const normalize = function(val) { 
