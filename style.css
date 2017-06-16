@@ -1,21 +1,7 @@
-.tooltip {
-	position: absolute;
-  background-color: #6d706c;
-  color: #ffffff;
-  width: auto;
-  font-size: 20px;
-  padding: 10px;
-  border-radius:10px
+svg {
+  text-anchor: end;
 }
-
-
 
 div {
   white-space: pre-wrap;
-}
-
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  font-family: Helvetica;
 }

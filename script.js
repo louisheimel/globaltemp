@@ -81,12 +81,10 @@ fetch('https://raw.githubusercontent.com/FreeCodeCamp/ProjectReferenceData/maste
 
        monthList.forEach((e, i) => {
          root.append('text')
-             .attr('x', -70)
+             .attr('x', -15)
              .attr('y', 30 * i + 60)
              .text(e)
        })
-
-       nums.forEach(e => console.log(e))
 
        const div = d3.select("body").append("div")
 							.attr("class", "tooltip")
